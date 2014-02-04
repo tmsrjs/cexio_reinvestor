@@ -28,12 +28,13 @@ module CexioReinvestor
       result = api.place_order('buy', amount_to_buy, price, pair)
       result['pending'] = BigDecimal.new(result['pending'], 8)
 
+      order_info = "#{amount_to_buy.to_s('F')} #{to} @ #{price.to_s('F')} #{from} each"
       if result['error']
-        print "Could not place order for #{amount_to_buy} #{to} @ #{price} #{from}"
+        print "Could not place order for #{order_info}"
         puts " - Error was: #{result['error']}"
       else
-        print "Placed order for #{amount_to_buy.to_s('F')} #{to} @ #{price.to_s('F')} #{from} each"
-        print " - Bought #{result['amount']}"
+        print "Placed order for #{order_info}"
+        print " - Bought #{(amount_to_buy - result['pending']).to_s('F')}"
         print ", #{result['pending'].to_s('F')} pending" if result['pending'] > 0
         puts " - #{Time.now}"
       end
