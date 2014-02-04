@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+require 'micro-optparse'
+require 'cexio_reinvestor'
+
+parser = Parser.new do |p|
+  p.option :username, "CEX.io username", default: ""
+  p.option :api_key, "CEX.io API key", default: ""
+  p.option :api_secret, "CEX.io API secret", short: 's', default: ""
+end
+options = parser.process!
+
+if options.values.any?(&:empty?)
+  puts parser.instance_eval { @optionparser }
+  exit 1
+end
+
+trader = CexioReinvestor::Trader.new(options[:username], options[:api_key], options[:api_secret])
+
+trap('INT') do
+  puts "\nBye."
+  exit
+end
+
+trader.run
