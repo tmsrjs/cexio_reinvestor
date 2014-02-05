@@ -26,7 +26,7 @@ module CexioReinvestor
       return if amount_to_buy < MIN
 
       result = api.place_order('buy', amount_to_buy, price, pair)
-      result['pending'] = BigDecimal.new(result['pending'], 8)
+      result['pending'] = BigDecimal.new(result.fetch('pending', 0), 8)
 
       order_info = "#{amount_to_buy.to_s('F')} #{to} @ #{price.to_s('F')} #{from} each"
       if result['error']
