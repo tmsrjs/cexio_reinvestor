@@ -20,9 +20,9 @@ module CexioReinvestor
       to, from = pair.split('/')
       balance = BigDecimal.new(api.balance[from]['available'])
       sleep 1
-      price, amount = api.order_book(pair)['asks'].first.map { |x| BigDecimal.new(x, 8) }
+      price = BigDecimal.new(api.ticker(pair)['ask'], 8)
       sleep 1
-      amount_to_buy = [ balance / price, amount ].min.round(8, :down)
+      amount_to_buy = (balance / price).round(8, :down)
       return if amount_to_buy < MIN
 
       result = api.place_order('buy', amount_to_buy, price, pair)
