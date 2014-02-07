@@ -38,12 +38,22 @@ module CexioReinvestor
         print ", #{result['pending'].to_s('F')} pending" if result['pending'] > 0
         puts " - #{Time.now}"
       end
+    rescue Timeout::Error
+      :timeout
+    rescue JSON::ParserError
+      :invalid_response
     end
 
     def run
       while true do
         [ 'GHS/BTC', 'GHS/NMC' ].each do |pair|
-          trade(pair)
+          case trade(pair)
+          when :timeout
+            puts "Timed out when trying to contact CEX.io."
+          when :invalid_response
+            puts "Hit CEX.io API request limit, will sleep for a bit."
+            sleep 50
+          end
           sleep 10
         end
       end
