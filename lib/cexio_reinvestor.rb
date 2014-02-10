@@ -52,9 +52,9 @@ module CexioReinvestor
             puts "Timed out when trying to contact CEX.io."
           when :invalid_response
             puts "Hit CEX.io API request limit, will sleep for a bit."
-            sleep 50
+            sleep 240
           end
-          sleep 10
+          sleep 120
         end
       end
     end
