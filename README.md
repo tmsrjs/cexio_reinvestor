@@ -17,3 +17,9 @@ This is a simple command-line tool that helps you reinvest your mined BTC and NM
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Donations
+
+**Bitcoin:** 1DwZR4TdRy4a448xRz8Dm51hHn6PdZXYS2
+
+**CEX.IO referral link:** https://cex.io/r/2/eromirou/0/

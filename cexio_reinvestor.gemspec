@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["tmsrjs@gmail.com"]
   spec.description   = %q{CEX.io Reinvestor reinvests earned BTC and NMC.}
   spec.summary       = %q{CEX.io Reinvestor.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/tmsrjs/cexio_reinvestor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
