@@ -17,9 +17,11 @@ end
 
 trader = CexioReinvestor::Trader.new(options[:username], options[:api_key], options[:api_secret])
 
-trap('INT') do
-  puts "\nBye."
-  exit
+%w(INT SIGINT).each do |signal|
+  trap(signal){
+    puts "\nBye."
+    exit!
+  }
 end
 
 trader.run

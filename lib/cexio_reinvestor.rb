@@ -4,6 +4,7 @@ require 'cexio'
 module CexioReinvestor
 
   MIN = BigDecimal.new('0.00000001')
+  FEE_ADJUSTMENT = BigDecimal.new('1.002012141')
 
   class Trader
     def initialize(username, api_key, api_secret)
@@ -22,7 +23,7 @@ module CexioReinvestor
       sleep 1
       price = BigDecimal.new(api.ticker(pair)['ask'], 8)
       sleep 1
-      amount_to_buy = (balance / price).round(8, :down)
+      amount_to_buy = (balance / price / FEE_ADJUSTMENT).round(8, :down)
       return if amount_to_buy < MIN
 
       result = api.place_order('buy', amount_to_buy, price, pair)
